@@ -1,5 +1,6 @@
 import spacebrew.*;
 import processing.video.*;
+ParticleSystem ps;
 
 // Spacebrew stuff
 String server = "sandbox.spacebrew.cc";
@@ -16,7 +17,7 @@ int appHeight = 720;
 // EC stuff
 //turn these back to false - and change your time jos!!
 int corpseStarted   = 0;
-boolean bDrawing    = false;
+boolean bDrawing    = true;
 boolean bNeedToClear = false;
 
 
@@ -113,6 +114,9 @@ void setup() {
   images[11] = loadImage("donut5.png"); 
   images[12] = loadImage("donut6.png");
   donuts = loadImage("donuts.gif"); 
+  //newjos
+  ps = new ParticleSystem(new PVector(width/2,50));
+
 
   //timmy init position
   timmy_pos = height;
@@ -147,107 +151,107 @@ void draw() {
   }
 
   // ---- start person 1: nicole ---- //
-  if ( millis() - corpseStarted < 10000 ) {
-    fillColor = map(remote_sliderX_val, -10, 10, -100, 100);
-    println("mapValue: " + fillColor);
-    fill(fillColor, 244, 244);
-
-      stroke(255);
-    rect(0, 0, width / 3.0, height );
-    fill(255);
-
-    //eating cake image
-    eatingWidthMap = map(remote_sliderX_val, -10, 10, -width/3, width/3);
-    eatingWidth = int(abs(eatingWidthMap));
-    eatingHeightMap = map(remote_sliderX_val, -10, 10, -height/3, height/3);
-    eatingHeight = int(abs(eatingHeightMap));
-    image(eating, 0, 0, eatingWidth, eatingHeight);
-    image(eating, 0, height/3, eatingWidth, eatingHeight);
-    image(eating, 0, 2*height/3, eatingWidth, eatingHeight);
-
-    //cake image
-    pictureLengthMap = map(remote_sliderX_val, -10, 10, -200, 200);
-    pictureLength = int(abs(pictureLengthMap));
-    image(cake, width/6-pictureLength/2, height/2, pictureLength, pictureLength);
-
-    //audio from movie
-    image(movieMatilda, 0, 0);
-    println("y: " + remote_sliderY_val);
-
-    //falling cake
-    if (remote_sliderX_val == -10 || remote_sliderX_val==10) {
-      image(cake, width/27, cakeHeight, 50, 50);
-      image(cake, width/9, cakeHeight, 50, 50);
-      image(cake, 5*width/27, cakeHeight, 50, 50);
-      image(cake, 7*width/27, cakeHeight, 50, 50);
-      cakeHeight += 10;
-    }
-
-    if (cakeHeight == height) {
-      cakeHeight = 0;
-    }
-
-    // ---- start person 2 ---- //
-  } 
-  else if ( millis() - corpseStarted < 20000 ) {
-    println("made it to second person");
-    stroke(255);
-    fill(93, 196, 232);
-    rect(width / 3.0, 0, width / 3.0, height );
-    //load cloud images
-    image(cloud_one, xPos_one, yPos_one, 121, 81);
-    image(cloud_two, xPos_two, yPos_two);
-    image(cloud_three, xPos_three, yPos_three);
-    image(cloud_two, xPos_four, yPos_four);
-    image(timmy, width/3.0+30, timmy_pos);
-
-    //timmy's movement
-    if (timmy_pos > -400) {
-      timmy_pos -=  timmy_input_speed;
-    }
-
-    //movement of clouds and speed
-    if (yPos_one <= height || yPos_two <= height || yPos_three <= height || yPos_four <= height ) {
-      yPos_one += 5;
-      yPos_two += 5;
-      yPos_three += 5;
-      yPos_four += 5;
-    }
-
-    //randomisations of where clouds next turn up
-    if (yPos_one == height) {
-      yPos_one = 0;
-      xPos_one = random(width/3.0, (width/3.0+width/3.0-132));
-    }
-    if (yPos_two == height) {
-      yPos_two = 0;
-      xPos_two = random(width/3.0, (width/3.0+width/3.0-132));
-    }
-    if (yPos_three == height) {
-      yPos_three = 0;
-      xPos_three = random(width/3.0, (width/3.0+width/3.0-132));
-    }
-    if (yPos_four == height) {
-      yPos_four = 0;
-      xPos_four = random(width/3.0, (width/3.0+width/3.0-132));
-    }
-
-    // ---- start p erson 3 ---- //
-  } 
-  else if (millis() - corpseStarted < 30000 ) {
+//  if ( millis() - corpseStarted < 10000 ) {
+//    fillColor = map(remote_sliderX_val, -10, 10, -100, 100);
+//    println("mapValue: " + fillColor);
+//    fill(fillColor, 244, 244);
+//
+//      stroke(255);
+//    rect(0, 0, width / 3.0, height );
+//    fill(255);
+//
+//    //eating cake image
+//    eatingWidthMap = map(remote_sliderX_val, -10, 10, -width/3, width/3);
+//    eatingWidth = int(abs(eatingWidthMap));
+//    eatingHeightMap = map(remote_sliderX_val, -10, 10, -height/3, height/3);
+//    eatingHeight = int(abs(eatingHeightMap));
+//    image(eating, 0, 0, eatingWidth, eatingHeight);
+//    image(eating, 0, height/3, eatingWidth, eatingHeight);
+//    image(eating, 0, 2*height/3, eatingWidth, eatingHeight);
+//
+//    //cake image
+//    pictureLengthMap = map(remote_sliderX_val, -10, 10, -200, 200);
+//    pictureLength = int(abs(pictureLengthMap));
+//    image(cake, width/6-pictureLength/2, height/2, pictureLength, pictureLength);
+//
+//    //audio from movie
+//    image(movieMatilda, 0, 0);
+//    println("y: " + remote_sliderY_val);
+//
+//    //falling cake
+//    if (remote_sliderX_val == -10 || remote_sliderX_val==10) {
+//      image(cake, width/27, cakeHeight, 50, 50);
+//      image(cake, width/9, cakeHeight, 50, 50);
+//      image(cake, 5*width/27, cakeHeight, 50, 50);
+//      image(cake, 7*width/27, cakeHeight, 50, 50);
+//      cakeHeight += 10;
+//    }
+//
+//    if (cakeHeight == height) {
+//      cakeHeight = 0;
+//    }
+//
+//    // ---- start person 2 ---- //
+//  } 
+//  else if ( millis() - corpseStarted < 20000 ) {
+//    println("made it to second person");
+//    stroke(255);
+//    fill(93, 196, 232);
+//    rect(width / 3.0, 0, width / 3.0, height );
+//    //load cloud images
+//    image(cloud_one, xPos_one, yPos_one, 121, 81);
+//    image(cloud_two, xPos_two, yPos_two);
+//    image(cloud_three, xPos_three, yPos_three);
+//    image(cloud_two, xPos_four, yPos_four);
+//    image(timmy, width/3.0+30, timmy_pos);
+//
+//    //timmy's movement
+//    if (timmy_pos > -400) {
+//      timmy_pos -=  timmy_input_speed;
+//    }
+//
+//    //movement of clouds and speed
+//    if (yPos_one <= height || yPos_two <= height || yPos_three <= height || yPos_four <= height ) {
+//      yPos_one += 5;
+//      yPos_two += 5;
+//      yPos_three += 5;
+//      yPos_four += 5;
+//    }
+//
+//    //randomisations of where clouds next turn up
+//    if (yPos_one == height) {
+//      yPos_one = 0;
+//      xPos_one = random(width/3.0, (width/3.0+width/3.0-132));
+//    }
+//    if (yPos_two == height) {
+//      yPos_two = 0;
+//      xPos_two = random(width/3.0, (width/3.0+width/3.0-132));
+//    }
+//    if (yPos_three == height) {
+//      yPos_three = 0;
+//      xPos_three = random(width/3.0, (width/3.0+width/3.0-132));
+//    }
+//    if (yPos_four == height) {
+//      yPos_four = 0;
+//      xPos_four = random(width/3.0, (width/3.0+width/3.0-132));
+//    }
+//
+//    // ---- start p erson 3 ---- //
+//  } 
+  else if (millis() - corpseStarted < 10000 ) {
     image(star, width*2.0/3.0, 0, width/3.0, height);
     println(x); 
     image(images[int(random(i))], random(850, 1000), random(-20, 300)); 
     if (rotate==1) {
-      i+=1; 
+      //i+=1;   
+      ps.addParticle();
+      ps.run();
       println("rotate: " + rotate);
-      if (i >= 12) {
-        i = int(random(1, 12));
-      } 
+//      if (i >= 12) {
+//        i = int(random(1, 12));
+//      } 
       //image(star4, width*2.0/3.0, 0, width/3.0, height);
-      float dx = (mouseX-star4.width/2) - offset;   
-      tint(255, 127);
-      image(star4, width*2.0/3.0, 0, width/3.0, height);
+   
     }
   }
   //end Joselyn's stuff 
@@ -292,10 +296,6 @@ void onBooleanMessage( String name, boolean value ) {
       }
     }
   }
-
-
-
-
 
 //NICOLE: changed to receive onRange values
 void onRangeMessage( String name, int value ) {
