@@ -15,13 +15,15 @@
 	      
 		// Spacebrew Object
 		var sb
-			, app_name = "joselyn_button_FEEDME"
+			, app_name = "Joselyn_JS_FEED_ME_Button"
 			;
 
 		/**
 	     * setup Configure spacebrew connection and adds the mousedown listener.
 	     */
 		function setup (){
+
+			//Not sure why this is necessary
 			var random_id = "0000" + Math.floor(Math.random() * 10000)
 				;
 
@@ -66,7 +68,7 @@
 	     * @param  {Event object} evt Holds information about the button press event
 	     */
 		function onButtonPress (evt){
-		      	console.log("[onButtonPress] button has been pressed"); 
+		      	console.log("[onButtonPress] yeah! button has been pressed"); 
 	             sb.send("buttonPressYes", "boolean", "true");
 		}
 
@@ -96,7 +98,6 @@
 		<h3 id="numclicks"></h3>
 		<a class="button" id="buttonMsg">FEED ME!</a>
 		</br></br>
-		<!-- <div id="name">Trying to connect</div> -->
 	</body>
 
 </html>
